@@ -138,6 +138,7 @@ TEST(CoreDLList, Contains) {
 
 TEST(CoreDLList, Iterators) {
   Apto::List<int, Apto::DL> list;
+  EXPECT_FALSE(list.Begin().Next());
   for (int i = 0; i < 5; i++) list.PushRear(i);
   
   Apto::List<int, Apto::DL>::Iterator it = list.Begin();
@@ -146,7 +147,10 @@ TEST(CoreDLList, Iterators) {
     EXPECT_EQ(i, *it.Get());
     i++;
   }
-  
+
+  const Apto::List<int, Apto::SparseVector> empty_const_list;
+  EXPECT_FALSE(empty_const_list.Begin().Next());
+
   const Apto::List<int, Apto::DL>& const_list = list;
   Apto::List<int, Apto::DL>::ConstIterator cit = const_list.Begin();
   i = 0;
@@ -311,6 +315,7 @@ TEST(CoreBufferedDLList, Contains) {
 
 TEST(CoreBufferedDLList, Iterators) {
   Apto::List<int, Apto::BufferedDL> list;
+  EXPECT_FALSE(list.Begin().Next());
   for (int i = 0; i < 5; i++) list.PushRear(i);
   
   Apto::List<int, Apto::BufferedDL>::Iterator it = list.Begin();
@@ -319,7 +324,10 @@ TEST(CoreBufferedDLList, Iterators) {
     EXPECT_EQ(i, *it.Get());
     i++;
   }
-  
+
+  const Apto::List<int, Apto::SparseVector> empty_const_list;
+  EXPECT_FALSE(empty_const_list.Begin().Next());
+
   const Apto::List<int, Apto::BufferedDL>& const_list = list;
   Apto::List<int, Apto::BufferedDL>::ConstIterator cit = const_list.Begin();
   i = 0;
@@ -484,6 +492,7 @@ TEST(CoreSparseVectorList, Contains) {
 
 TEST(CoreSparseVectorList, Iterators) {
   Apto::List<int, Apto::SparseVector> list;
+  EXPECT_FALSE(list.Begin().Next());
   for (int i = 0; i < 5; i++) list.PushRear(i);
   
   Apto::List<int, Apto::SparseVector>::Iterator it = list.Begin();
@@ -492,7 +501,10 @@ TEST(CoreSparseVectorList, Iterators) {
     EXPECT_EQ(i, *it.Get());
     i++;
   }
-  
+
+  const Apto::List<int, Apto::SparseVector> empty_const_list;
+  EXPECT_FALSE(empty_const_list.Begin().Next());
+
   const Apto::List<int, Apto::SparseVector>& const_list = list;
   Apto::List<int, Apto::SparseVector>::ConstIterator cit = const_list.Begin();
   i = 0;
