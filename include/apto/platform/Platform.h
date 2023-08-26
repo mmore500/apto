@@ -33,8 +33,21 @@
 #ifndef AptoPlatformPlatform_h
 #define AptoPlatformPlatform_h
 
-// spaces between defined's parentheses and contained value are required by Visual Studio's preprocessor
-#define APTO_PLATFORM(PROP) (defined( APTO_PLATFORM_ ## PROP ) && APTO_PLATFORM_##PROP)
+/*
+ * this macro implementation replaces
+ * // spaces between defined's parentheses and contained value are required by Visual Studio's preprocessor
+ * #define APTO_PLATFORM(PROP) (defined( APTO_PLATFORM_ ## PROP ) && APTO_PLATFORM_##PROP)
+ * which spams the build with -Wexpansion-to-defined warnings
+ * this implementation doesn't warn and works across GCC, clang, and MSVC
+ * it does rely on ubiquitious, but not standardized, behavior
+ * where undefined macros evaluate to 0 in this context
+ * note that pragma warning push/pop can't solve this problem because
+ * the warnings are coming from the macro application sites elsewhere
+ */
+#define APTO_PLATFORM(PROP)(\
+  (APTO_PLATFORM_##PROP)\
+  ? 1 : 0\
+)
 
 #if defined(WIN32) || defined(_WIN32)
 # define APTO_PLATFORM_WINDOWS 1
